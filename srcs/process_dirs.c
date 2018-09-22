@@ -1,10 +1,21 @@
 #include "ft_ls"
 
+int	is_dirs(char *path)
+{
+	struct stat	stats;
+
+	if (stat(path, &stats) == -1)
+		return (0);
+	if (S_ISDIR(stats.st_mode))
+		return (1);
+	return (0);
+}
+
 t_paths	*process_dirs(t_paths *args, t_flags flags)
 {
-	t_paths *dirs;
-	t_paths *prev;
-	t_paths *tmp;
+	t_paths		*dirs;
+	t_paths		*prev;
+	t_paths		*tmp;
 
 	dirs = NULL;
 	prev = NULL;

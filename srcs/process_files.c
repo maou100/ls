@@ -4,8 +4,9 @@ int	is_file(const char *path)
 {
 	struct stat	stats;
 
-	stat(path, &stats);
-	if (S_ISREG(stats.st_mode))
+	if (stat(path, &stats) == -1)
+		return (0);
+	if (!(S_ISDIR(stats.st_mode)))
 		return (1);
 	return (0);
 }
