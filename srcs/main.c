@@ -6,7 +6,7 @@
 /*   By: feedme <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/17 15:44:40 by feedme            #+#    #+#             */
-/*   Updated: 2018/09/22 16:29:48 by feedme           ###   ########.fr       */
+/*   Updated: 2018/09/23 10:55:21 by feedme           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,20 +36,14 @@ void	ft_ls(t_paths *args, t_flags flags)
 		{
 			errors = errors_ascii_sorting(errors);
 //			if (flags.r)
-//				errors = paths_reverse(errors);  pas de reverse sur errors, et apparement pas de reverse sur files non plus (ni time), cheulou
+//				errors = paths_reverse(errors);  pas de flags sur errors
 		}
 		process_errors(errors);
 	}
-	while (files)
-	{
-		process_files(files, flags);
-		files = files->next;
-	}
-	while (dirs)
-	{
-		process_dirs(dirs, flags);
-		dirs = dirs->next;
-	}
+	process_files(files, flags);
+	if (files && dirs)
+		write(1, "\n", 1);
+	process_dirs(dirs, flags);
 	ft_free_all(files, dirs, errors);
 }
 

@@ -6,7 +6,7 @@
 /*   By: feedme <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/14 15:29:20 by feedme            #+#    #+#             */
-/*   Updated: 2018/09/22 16:16:42 by feedme           ###   ########.fr       */
+/*   Updated: 2018/09/23 11:20:07 by feedme           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,16 @@ typedef	struct	s_paths
 	char		*path;
 	t_paths		*next;
 }				t_paths;
+
+typedef struct	s_data
+{
+	char		*perm;
+	int			link_c;
+	char		*owner;
+	char		*group;
+	char		*byte_c;
+	char		*m_date;
+}				t_data;
 
 void	str_swap(t_paths *paths, t_paths *next);
 int		ascii_cmp(char paths, char next);
