@@ -42,7 +42,6 @@ typedef	struct	s_paths
 typedef struct	s_data
 {
 	char		*perm;
-	int			link_c;
 	char		*owner;
 	char		*group;
 	char		*byte_c;

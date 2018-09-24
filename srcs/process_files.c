@@ -12,9 +12,41 @@
 
 #include "ft_ls.h"
 
+void	init_data(t_data *data)
+{
+	data->perm = NULL;
+	data->link_c = -1;
+	data->owner = NULL;
+	data->group = NULL;
+	data->byte_c = NULL;
+	data->m_data = NULL;
+}
+
+char	*get_byte_c(long long size)
+{
+	char	*bytes;
+
+	if (size < 1000)
+		return (ft_itoa((int)size));
+	else if (size < 1000000)
+		return (kilo_bytes((int)size));
+	else if (size < 1000000000)
+		return (mega_bytes((int)size));
+	else if (size < 1000000000000)
+		return (giga_bytes((long long)size));
+	else if (size < 1000000000000000)
+		return (tera_bytes((long long)size));
+	else
+		
+}
+
 void	get_data(struct stat stats, t_data *data)
 {
-	
+	data->perm = get_perms(stats);
+	data->owner = 
+	data->group =
+	data->byte_c = get_byte_c((long long)stats.st_size); 
+	data->m_data =
 }
 
 void	file_l_line(t_paths *file)
@@ -23,9 +55,10 @@ void	file_l_line(t_paths *file)
 	t_data		data;
 
 	stat(file->path, &stats);
+	init_data(&data);
 	get_data(stats, &data);
 	write(1, "-", 1);
-	ft_printf("%s  %d\t%s\t%s\t%s\t%s\t%s\n", data.perm, data.link_c, data.owner, data.group, data.byte_c, data.m_date, file->path);	
+	ft_printf("%s  %ld\t%s\t%s\t%s\t%s\t%s\n", data.perm, (long)stats.st_nlink, data.owner, data.group, data.byte_c, data.m_date, file->path);	
 }
 
 void	file_l_display(t_paths *files, t_flags flags)
