@@ -19,13 +19,11 @@ void	init_data(t_data *data)
 	data->owner = NULL;
 	data->group = NULL;
 	data->byte_c = NULL;
-	data->m_data = NULL;
+	data->m_date = NULL;
 }
 
 char	*get_byte_c(long long size)
 {
-	char	*bytes;
-
 	if (size < 1000)
 		return (ft_itoa((int)size));
 	else if (size < 1000000)
@@ -37,7 +35,7 @@ char	*get_byte_c(long long size)
 	else if (size < 1000000000000000)
 		return (tera_bytes((long long)size));
 	else
-		
+		IF_NULL_X_MSG(0, 1, "...seriously?\n");
 }
 
 void	get_data(struct stat stats, t_data *data)
@@ -46,7 +44,7 @@ void	get_data(struct stat stats, t_data *data)
 	data->owner = 
 	data->group =
 	data->byte_c = get_byte_c((long long)stats.st_size); 
-	data->m_data =
+	data->m_date =
 }
 
 void	file_l_line(t_paths *file)
