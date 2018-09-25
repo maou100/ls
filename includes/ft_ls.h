@@ -45,7 +45,7 @@ typedef struct	s_data
 	char		*owner;
 	char		*group;
 	char		*byte_c;
-	char		*m_date;
+	char		**m_date;
 }				t_data;
 
 void	str_swap(t_paths *paths, t_paths *next);

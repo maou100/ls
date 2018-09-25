@@ -20,34 +20,46 @@ void	init_data(t_data *data)
 	data->m_date = NULL;
 }
 
-char	*get_date(char *date)
-{
-	char	*new;
-}
-
 void	get_data(struct stat stats, t_data *data)
 {
 	struct passwd	*user;
 	struct group	*grp;
+	char		*tmp;
 
 	user = getpwuid(stats.st_uid);//errors?
 	grp = getgrgid(stats.st_gid);//errors?
 	data->perm = get_perms(stats);
 	data->owner = user->pw_name;
 	data->group = grp->gr_name;
-	data->m_date = get_date(ctime(&stats.st_mtime));//errors?
+	data->m_date = ft_strplit(ctime(&stats.st_mtime), ' ');//ctime errors?
+	tmp = ft_strsub(data->m_date[3], 0, 5);
+	free(data->m_date[3]);
+	data->m_date[3] = tmp;
 }
 
 void	file_l_line(t_paths *file)
 {
 	struct stat	stats;
 	t_data		data;
+	int		i;
 
+	i = -1;
 	stat(file->path, &stats);
 	init_data(&data);
 	get_data(stats, &data);
-	write(1, "-", 1);
-	ft_printf("%s  %ld\t%s\t%s\t%s\t%s\t%s\n", data.perm, (long)stats.st_nlink, data.owner, data.group, data.byte_c, data.m_date, file->path);	
+	printf("-");
+	ft_printf("%s ", data.perm);
+	ft_printf("%3ld ", (long)stats.st_link);
+	ft_printf("%16s ", data.owner);
+	ft_printf("%16s ", data.group);
+	ft_printf("%10s ", data.byte_c);
+	ft_printf("%s", data.m_date[1]);
+	ft_printf("%3s ", data.m_date[2]);
+	ft_printf("%s ", data.m_date[3]);
+	ft_printf("%s\n", file->path);
+	while (data.m_date[++i])
+		free(data.m_date[i]);
+	free(data.m_date);
 }
 
 void	file_l_display(t_paths *files, t_flags flags)
